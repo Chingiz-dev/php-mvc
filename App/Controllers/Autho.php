@@ -26,7 +26,6 @@
                 $login = $user[0];
                 $pass = $user[1];
                 $user = User::getOne($login);
-                $out = var_dump($user);
                 $userinfo = $user[0];
 
             }
