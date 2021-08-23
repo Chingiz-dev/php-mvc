@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    <h1>Welcome</h1>
+<form action="autho/login" method="post">
+    <fieldset>
+        <legend>login please</legend>
+    <input type="text" name="login[]" placeholder="login">
+    <input type="password" name="login[]" placeholder="pass">
+    <input type="submit">
+    </fieldset>
+</form>
+<form action="autho/register" method="post">
+    <fieldset>
+        <legend>Registrate if you dont have account</legend>
+        <input type="text" name="register[]" placeholder="login">
+        <input type="password" name="register[]" placeholder="pass">
+        <input type="submit">
+    </fieldset>
+</form>
+
+{% endblock %}
