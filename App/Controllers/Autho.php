@@ -4,6 +4,7 @@
 
     use App\Models\User;
     use \Core\View;
+    use mysql_xdevapi\Exception;
 
     /**
      * Home controller
@@ -22,14 +23,23 @@
         {
             if(isset($_POST['login']))
             {
-                $user = $_POST['login'];
-                $login = $user[0];
-                $pass = $user[1];
-                $user = User::getOne($login);
-                $userinfo = $user[0];
+                $text = "password incorrect";
+                $userInput = $_POST['login'];
+                $login = $userInput[0];
+                $pass = $userInput[1];
 
+                $baseuser = User::getOne($login);
+                if(empty($baseuser[0])){
+                    $text = "user not found";
+                } else {
+                    $userinfo = $baseuser[0];
+                    if($pass == $userinfo['pass']){
+                        $text = "Password correct, welcome";
+                    }
+                }
             }
-            View::renderTemplate('UserPage/userpage.html', ['login'=>$userinfo['login'], 'pass'=>$userinfo['pass']]);
+
+            View::renderTemplate('UserPage/userpage.html', ['login'=>$login, 'pass'=>$pass, 'text'=>$text]);
         }
         public function registerAction()
         {
